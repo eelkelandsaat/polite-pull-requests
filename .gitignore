@@ -1,0 +1,10 @@
+.env
+__pycache__/
+computations/__pycache__/
+label/__pycache__/
+request/__pycache__/
+.vscode
+regressor_10%/*
+regressor_complete/*
+label/resources/
+git-filter-repo.py
