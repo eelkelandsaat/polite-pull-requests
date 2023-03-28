@@ -41,18 +41,18 @@ def exportCorpusToCSV(corpus: Corpus, folderPath: str, trainDevTestSplit: tuple)
     testSplit = [lines.pop(random.randrange(len(lines))) for _ in rest]
 
     # Export data to CSV files
-    for split, filename in [(trainSplit, './data/train.csv'), (devSplit, './data/dev.csv'), (testSplit, './data/test.csv')]:
+    for split, filename in [(trainSplit, 'train.csv'), (devSplit, 'dev.csv'), (testSplit, 'test.csv')]:
         writeDataToCSV(split, path.join(folderPath, filename))
 
 
 # Download the Wikipedia and Stackexchange message politeness data sets and store them in CSV files in the given folders
-def createDataSets(wikipediaFolder: str, stackExchangeFolder: str, trainDevTestSplit: tuple):
+def createDataSets(trainDevTestSplit: tuple):
     stackExchangeCorpus = Corpus(filename=download('stack-exchange-politeness-corpus'))
     wikipediaCorpus = Corpus(filename=download('wikipedia-politeness-corpus'))
 
-    exportCorpusToCSV(stackExchangeCorpus, stackExchangeFolder, trainDevTestSplit)
-    exportCorpusToCSV(wikipediaCorpus, wikipediaFolder, trainDevTestSplit)
+    exportCorpusToCSV(stackExchangeCorpus, STACK_EXCHANGE_FOLDER, trainDevTestSplit)
+    exportCorpusToCSV(wikipediaCorpus, WIKIPEDIA_FOLDER, trainDevTestSplit)
 
 
 if __name__ == '__main__':
-    createDataSets(WIKIPEDIA_FOLDER, STACK_EXCHANGE_FOLDER, TRAIN_DEV_TEST_SPLIT)
+    createDataSets(TRAIN_DEV_TEST_SPLIT)
