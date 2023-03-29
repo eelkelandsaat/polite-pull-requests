@@ -7,7 +7,7 @@ computations/__pycache__/
 label/__pycache__/
 request/__pycache__/
 .vscode
-# regressor/*
+regressor/*
 label/resources/
 git-filter-repo.py
 util/
