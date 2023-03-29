@@ -18,17 +18,21 @@ pr_data['time-to-merge'] =   pr_data.apply(lambda x: (datetime.strptime(x['merge
 # Format data
 pr_merged = pd.merge(pr_labeled, pr_data, left_index=True, right_index=True)
 grouped = pr_merged.groupby('repo_api_url_x')
+pr_merged['class_label'] = pr_merged.apply(lambda x: -1 if x['regression_score'] < -0.196244 else (0 if x['regression_score'] < 0.3079949 else 1), axis=1)
 
 print('ANOVA coefficients')
 # Calculate ANOVA coefficients (class label)
-df_plot = pr_merged[['class_label', 'time-to-merge']]
-df_plot['num'] = df_plot.index
-df_plot.columns = ['class_label', 'time-to-merge', 'index']
+df_select = pr_merged[['class_label', 'time-to-merge']]
+df_select['num'] = df_select.index
+df_select.columns = ['class_label', 'time-to-merge', 'index']
+df_plot = df_select
+df_plot['time-to-merge'] = df_plot['time-to-merge'].div(86400)
 
 ax = sns.boxplot(x='class_label', y='time-to-merge', data=df_plot, color='#99c2a2', showfliers=False)
 ylims=ax.get_ylim()
-ax = sns.stripplot(x='class_label', y='time-to-merge', data=df_plot, color='#7d0013')
+ax = sns.stripplot(x="class_label", y="time-to-merge", data=df_plot, color='#7d0013')
 ax.set(ylim=ylims)
+ax.set(xlabel='class label', ylabel='time-to-merge (days)')
 plt.show()
 
 df_oneway = df_plot.pivot(values='time-to-merge',  columns='class_label')
