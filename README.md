@@ -20,3 +20,9 @@ In this repository, you may find scripts to investigate the influence of politen
 8. Run coefficient_imbalanced.py to obtain correlation coefficients calculated after balancing the data using SMOTE.
 
 This folder also contains the scripts countPulls.py and labelCounts.py. These scripts are meant for verification that the input and output data is present and sound.
+
+## GitHub Token
+Add an .env file to this directory and add your access token as follows to utilize your access token for GitHub:
+```
+ACCESS_TOKEN = 'your_access_token'
+```
